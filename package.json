@@ -1,0 +1,25 @@
+{
+  "name": "webpack4-native-starter-kit",
+  "version": "1.0.0",
+  "description": "webpack4 native starter kit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack4",
+    "natie",
+    "starter",
+    "kit",
+    "cli"
+  ],
+  "author": "zhy6421867@qq.com",
+  "license": "MIT",
+  "devDependencies": {
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {}
+}
