@@ -4,6 +4,10 @@
   "description": "webpack4 native starter kit",
   "main": "index.js",
   "scripts": {
+    "serve": "node ./config/dev",
+    "pre": "node ./config/dev",
+    "build": "node ./config/prod",
+    "lint": "eslint ./src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -11,7 +15,15 @@
     "natie",
     "starter",
     "kit",
-    "cli"
+    "cli",
+    "es6",
+    "es7",
+    "sass",
+    "less",
+    "jquery",
+    "multiple page",
+    "MPA",
+    "HMR"
   ],
   "author": "zhy6421867@qq.com",
   "license": "MIT",
