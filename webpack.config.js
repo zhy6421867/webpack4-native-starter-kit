@@ -5,6 +5,18 @@ const MinicssExtractPlugin = require('mini-css-extract-plugin')
 const Optimizecss = require('optimize-css-assets-webpack-plugin')
 const glod = require('glob')
 const PurifycssPlugin = require('purifycss-webpack')
+const TerserPlugin = require('terser-webpack-plugin')
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
+let publicPath = '';
+const isProduction = false; // 是否是生产环境
+
+if (!isProduction) {
+    publicPath = 'http://localhost:3000/static/assets';
+} else {
+    // 将 publicPath 设置为线上发布地址
+}
 
 module.exports = {
   mode: 'development', // 开发模式
@@ -14,6 +26,29 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'), // 打包后项目 输出到项目根目录下 dist 文件夹
     filename: '[name].js' // 输出的 入口JS文件名称
+  },
+
+  optimization: {
+    minimize: false, // 压缩
+    splitChunks: {
+      // include all types of chunks
+      chunks: 'all'
+    },
+    minimizer: [
+      new TerserPlugin({
+        cache     : true,
+        parallel  : true,
+        sourceMap : false // set to true if you want JS source maps
+      }),
+      new Optimizecss({
+        cssProcessorOptions: {
+          map: {
+            inline     : false,
+            annotation : true
+          }
+        }
+      })
+    ]
   },
 
   // loader 相关配置
@@ -88,6 +123,8 @@ module.exports = {
 
   // 插件 相关配置
   plugins: [
+    new CleanWebpackPlugin(),
+
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html'
@@ -104,6 +141,23 @@ module.exports = {
     // 净化 css
     new PurifycssPlugin({
       paths: glod.sync(path.join(__dirname, 'src/*.html'))
+    }),
+
+    // // copy assets and manifest.json
+    // new CopyWebpackPlugin([
+    //   {
+    //     from   : path.resolve(__dirname, '../src/assets'),
+    //     to     : 'assets',
+    //     ignore : ['.*', 'styles/*', 'fonts/*']
+    //   },
+    //   {
+    //     from : path.resolve(__dirname, '../src/manifest.json'),
+    //     to   : ''
+    //   }
+    // ]),
+
+    new webpack.DefinePlugin({
+      PRODUCTION: JSON.stringify(true)
     })
   ],
 

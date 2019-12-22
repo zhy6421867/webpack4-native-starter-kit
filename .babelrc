@@ -1,0 +1,15 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env", // 根据 preset-env 标准进行转换
+      {
+        "modules": false // 不转换模块类型
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime", // 来处理全局函数和优化babel编译
+    "transform-remove-console" // 打包时 移除 console 相关（开发环境下 不需要配置）
+  ],
+  "comments": false // 打包时 移除脚本中的注释 
+}
