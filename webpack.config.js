@@ -9,17 +9,17 @@ const TerserPlugin = require('terser-webpack-plugin')
 // const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
-let publicPath = '';
-const isProduction = false; // 是否是生产环境
+let publicPath = ''
+const isProduction = false // 是否是生产环境
 
 if (!isProduction) {
-    publicPath = 'http://localhost:3000/static/assets';
+    publicPath = 'http://localhost:3000/static/assets'
 } else {
     // 将 publicPath 设置为线上发布地址
 }
 
 module.exports = {
-  mode: 'development', // 开发模式
+  mode: 'production', // 开发模式
 
   entry: './src/index.js', // 打包后输出的文件名 为 main.js
 
@@ -29,25 +29,25 @@ module.exports = {
   },
 
   optimization: {
-    minimize: false, // 压缩
+    minimize: true, // 压缩
     splitChunks: {
       // include all types of chunks
       chunks: 'all'
     },
     minimizer: [
       new TerserPlugin({
-        cache     : true,
-        parallel  : true,
-        sourceMap : false // set to true if you want JS source maps
-      }),
-      new Optimizecss({
-        cssProcessorOptions: {
-          map: {
-            inline     : false,
-            annotation : true
-          }
-        }
+        cache: true,
+        parallel: true,
+        sourceMap: false // set to true if you want JS source maps
       })
+      // new Optimizecss({
+      //   cssProcessorOptions: {
+      //     map: {
+      //       inline: false,
+      //       annotation: true
+      //     }
+      //   }
+      // })
     ]
   },
 
