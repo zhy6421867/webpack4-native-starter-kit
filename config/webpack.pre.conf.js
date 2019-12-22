@@ -10,13 +10,6 @@ const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 let publicPath = ''
-const isProduction = false // 是否是生产环境
-
-if (!isProduction) {
-    publicPath = 'http://localhost:3000/static/assets'
-} else {
-    // 将 publicPath 设置为线上发布地址
-}
 
 module.exports = {
   mode: 'production', // 开发模式
@@ -24,7 +17,7 @@ module.exports = {
   entry: './src/index.js', // 打包后输出的文件名 为 main.js
 
   output: {
-    path: path.resolve(__dirname, 'dist'), // 打包后项目 输出到项目根目录下 dist 文件夹
+    path: path.resolve(__dirname, '../dist'), // 打包后项目 输出到项目根目录下 dist 文件夹
     filename: '[name].js' // 输出的 入口JS文件名称
   },
 
@@ -157,29 +150,7 @@ module.exports = {
     // ]),
 
     new webpack.DefinePlugin({
-      PRODUCTION: JSON.stringify(true)
+      MODE: JSON.stringify('pre')
     })
-  ],
-
-  // 本地开发
-  devServer: {
-    index: 'index.html', // 服务器启动的页面（同 html-webpack-plugin 中 filename 选项）; 默认值为 index.html
-    host: 'localhost', // 指定host; 默认 localhost
-    port: 3000, // 指定端口号; 默认 8080
-
-    open: true, // 启动本地服务后，自动打开页面// 启动本地服务后，自动打开页面
-    compress: true, // 是否启用 gzip 压缩
-    overlay: true, // 编译器错误或警告时, 在浏览器中显示全屏覆盖; 默认false
-    progress: true, // 是否将运行进度输出到控制台; 默认 false
-
-    contentBase: path.resolve(__dirname, 'dist'), // 告诉服务器从哪里提供内容。只有在你想要提供静态文件时才需要
-
-    // 精简 终端输出（本地运行时）
-    stats: {
-      modules: false,
-      children: false,
-      chunks: false,
-      chunkModules: false
-    }
-  }
+  ]
 }
