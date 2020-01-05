@@ -165,7 +165,9 @@ module.exports = {
     overlay: true, // 编译器错误或警告时, 在浏览器中显示全屏覆盖; 默认false
     progress: true, // 是否将运行进度输出到控制台; 默认 false
 
-    contentBase: path.resolve(__dirname, 'dist'), // 告诉服务器从哪里提供内容。只有在你想要提供静态文件时才需要
+    contentBase: path.resolve(__dirname, 'src'), // 告诉服务器从哪里提供内容。只有在你想要提供静态文件时才需要
+
+    publicPath: '',
 
     // 精简 终端输出（本地运行时）
     stats: {
